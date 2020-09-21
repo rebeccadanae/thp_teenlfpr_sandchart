@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+	<script src="sitewide.js"></script>
+	<script src="https://d3js.org/d3.v4.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+
+
+
+	<title>Sandchart comparison interactive: Title TK</title>
+	<style type="text/css">
+		body {
+			width: 100%;
+			margin: 0 auto;
+			position: relative;
+			background-color: #FAFAFA;
+			font-family: 'PT Serif', Times, serif;
+			font-size: 16px;
+			line-height: 1;
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			color: #101010;
+			text-shadow: 1px 1px 1px rgba(0,0,0,.004);
+		}
+
+		a, div, em, footer, form, h1, h2, h3, h4, h5, h6, header, img, li, ol, p, span, strong, ul {
+			border: 0;
+			font: inherit;
+			margin: 0;
+			padding: 0;
+			vertical-align: baseline;
+		}
+
+		ol, ul {
+			list-style: none;
+		}
+
+		img {
+			display: block;
+			height: auto;
+			max-width: 100%;
+		}
+
+		a {
+			border-bottom: 1px dotted #DC2A2A;
+			color: #DC2A2A;
+			text-decoration: none;
+		}
+
+		a:hover,
+		a:focus {
+			border-bottom-style: solid;
+			text-decoration: none;
+		}
+
+		strong {
+			font-weight: 700;
+		}
+
+		.post-body {
+			width: 90vw;
+			max-width: 40em;
+			margin: 2em auto;
+		}
+
+		.post-body > * {
+			margin-bottom: 2em;
+			font-size: 1.125em;
+			line-height: 1.667;
+		}
+
+		#brookings-header {
+			box-sizing: border-box;
+			width: 100%;
+			height: 100px;
+			border-bottom: 5px solid #ececec;
+			color: #003d79;
+			padding: .75em 0 0 .5em;
+			font-size: 3em;
+			text-transform: uppercase;
+			font-weight: 100;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="app.css">
+</head>
+<body>
+<div id="brookings-header">Brookings</div>
+<div class ='interactive-container'>
+<div class='title-container center-align bold' id="title">
+	<h1>Sandchart comparison interactive: Title TK</h1>
+</div>
+<div>
+	<form id="time_frame">
+	  <input  type='radio' id="summer" name="timeframe" checked>Summer</input>
+	  <input type='radio' id="school_year" name="timeframe">School Year</input>
+	</form>
+</div>
+<div class = "dropdown right-align">
+
+	<select id="gender">
+		<option value="0">All Genders</option>
+		<option value ="1">Female</option>
+		<option value ="2">Male</option>
+	</select>
+	<select id="race">
+		<option value="0">All Races</option>
+		<option value ="1">Black</option>
+		<option value ="2">Hispanic</option>
+		<option value ="3">White</option>
+	</select>
+</div>
+<div class = "legend-container">
+</div>
+
+				<div class='section graph1 tall'>
+
+			</div>
+				<div class ='section graph2 tall'>
+			</div>
+
+		<div class = "source-container left-align"><div id="source_content"><strong>Source:</strong> TK</div></div>
+		<div class = "logo-container"><img src='assets/THP_Brookings_DualLogo-01.png'/></div>
+</div>
+
+
+
+
+<script type="text/javascript">window.dataLayer = window.dataLayer || []</script>
+<script type="text/javascript" src="app.js" charset="utf-8"></script>
+</body>
+</html>
