@@ -53,7 +53,7 @@ d3.selection.prototype.moveToFront = function() {
     };
 
     var filter = 1;
-    var selection = "Summer_all_all"
+    var selection = "summer_all_all"
     var prev_selection = ""
 
 /*
@@ -104,7 +104,7 @@ d3.selection.prototype.moveToFront = function() {
     var season = "summer"
     var startup = true
     var temp_keys = ["key1", "key2", "key3", "key4"]
-    var const_keys = ["idleshare_all_all", "onlyworkshare_all_all", "onlyschoolshare_all_all", "bothshare_all_all"]
+    var const_keys = ["idleshare_all_all", "onlyschoolshare_all_all", "onlyworkshare_all_all",  "bothshare_all_all"]
     // append the svg object to the body of the page
     var svg1 = d3.select(".graph1")
       .append("svg")
@@ -122,7 +122,7 @@ d3.selection.prototype.moveToFront = function() {
                 .append("g")
                   .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
-    var dataName = "sandchart_summer.csv";
+
     create_graph();
 
 
@@ -138,17 +138,14 @@ d3.selection.prototype.moveToFront = function() {
         for(var i=0; i<time_form.length; i++){
             if(time_form[i].checked){
               time_form_val = time_form[i].id;}}
-
       var gender = document.getElementById("gender").value;
       var race = document.getElementById("race").value;
 
         if(time_form_val == "summer"){
           season = "summer"
-          dataName = "sandchart_summer.csv"
           graphLabel1 = "All genders, all races, summer"
           }else{
             season = "ay"
-          dataName = "sandchart_ay.csv"
           graphLabel1 = "All genders, all races, school year"
           };
 
@@ -173,7 +170,6 @@ d3.selection.prototype.moveToFront = function() {
       d3.csv("sandchart_data.csv", function(data) {
 
         var suffix_comb = suffix1 + "_" + suffix2;
-        prev_selection = selection
         selection = suffix_comb+"_"+season
 
         //////////
@@ -187,6 +183,7 @@ d3.selection.prototype.moveToFront = function() {
         var keys2 = data.columns.slice(1).filter(function(d){
           return d.includes(selection)
         })
+
         // color palette
         var color = d3.scaleOrdinal()
           .domain(keys1)
@@ -338,9 +335,6 @@ d3.selection.prototype.moveToFront = function() {
              .attr("id", "layer")
              .style("fill", function(d) { return color(d.key); })
              .attr("d", area)
-
-
-
 
             // Show the areas
             areaChart2
