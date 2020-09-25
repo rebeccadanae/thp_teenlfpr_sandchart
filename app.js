@@ -53,6 +53,8 @@ d3.selection.prototype.moveToFront = function() {
     };
 
     var filter = 1;
+    var selection = "Summer_all_all"
+    var prev_selection = ""
 
 /*
     function change_filter(){
@@ -85,6 +87,7 @@ d3.selection.prototype.moveToFront = function() {
 
 
     //Initial graph setup
+
     var margin = {top: 30, right: 20, bottom: 30, left: 50},
         width = 400 - margin.left - margin.right,
         height = 400 - margin.top - margin.bottom;
@@ -98,7 +101,7 @@ d3.selection.prototype.moveToFront = function() {
     var suffix2 = "all";
     var graphLabel1 = "All genders, all races, summer"
     var graphLabel2 = "Use the dropdown menus to explore subgroups"
-    var season = "Summer"
+    var season = "summer"
     var startup = true
     var temp_keys = ["key1", "key2", "key3", "key4"]
     var const_keys = ["idleshare_all_all", "onlyworkshare_all_all", "onlyschoolshare_all_all", "bothshare_all_all"]
@@ -121,10 +124,13 @@ d3.selection.prototype.moveToFront = function() {
                         "translate(" + margin.left + "," + margin.top + ")");
     var dataName = "sandchart_summer.csv";
     create_graph();
+
+
     function changeIt(){
       startup = false;
+
       //get rid of everything
-      d3.selectAll("#layer, #legend_square, #legend_text, #graphLabel1, #graphLabel2").remove()
+      d3.selectAll("#layers, #legend_square, #legend_text, #graphLabel1, #graphLabel2").remove()
       d3.selectAll("#yaxis").remove()
       d3.selectAll("#xaxis").remove()
         var time_form = document.getElementById("time_frame")
@@ -137,11 +143,11 @@ d3.selection.prototype.moveToFront = function() {
       var race = document.getElementById("race").value;
 
         if(time_form_val == "summer"){
-          season = "Summer"
+          season = "summer"
           dataName = "sandchart_summer.csv"
           graphLabel1 = "All genders, all races, summer"
           }else{
-            season = "School Year"
+            season = "ay"
           dataName = "sandchart_ay.csv"
           graphLabel1 = "All genders, all races, school year"
           };
@@ -164,18 +170,22 @@ d3.selection.prototype.moveToFront = function() {
     // Parse the Data
 
     function create_graph(){
-      d3.csv(dataName, function(data) {
+      d3.csv("sandchart_data.csv", function(data) {
+
         var suffix_comb = suffix1 + "_" + suffix2;
+        prev_selection = selection
+        selection = suffix_comb+"_"+season
+
         //////////
         // GENERAL //
         //////////
 
         // List of groups = header of the csv files
         var keys1 = data.columns.slice(1).filter(function(d){
-          return d.includes("all_all")
+          return d.includes("all_all_"+season)
         })
         var keys2 = data.columns.slice(1).filter(function(d){
-          return d.includes(suffix_comb)
+          return d.includes(selection)
         })
         // color palette
         var color = d3.scaleOrdinal()
@@ -312,21 +322,25 @@ d3.selection.prototype.moveToFront = function() {
 
         // Area generator
         var area = d3.area()
-          .x(function(d) { return x(d.data.year); })
-          .y0(function(d) { return y(d[0]*100); })
-          .y1(function(d) { return y(d[1]*100); })
+         .x(function(d) { return x(d.data.year); })
+         .y0(function(d) { return y(d[0]*100); })
+         .y1(function(d) { return y(d[1]*100); })
+
 
         // Show the areas
-        areaChart1
-          .selectAll("mylayers")
-          .data(stackedData1)
-          .enter()
-          .append("path")
-            .attr("class", function(d, i) {
-              return "myArea " + d.key })
-            .attr("id", "layer")
-            .style("fill", function(d) { return color(d.key); })
-            .attr("d", area)
+    areaChart1
+           .selectAll("mylayers")
+           .data(stackedData1)
+           .enter()
+           .append("path")
+             .attr("class", function(d, i) {
+               return "myArea " + d.key })
+             .attr("id", "layer")
+             .style("fill", function(d) { return color(d.key); })
+             .attr("d", area)
+
+
+
 
             // Show the areas
             areaChart2
@@ -415,7 +429,7 @@ d3.selection.prototype.moveToFront = function() {
 
 
           }
-
+          return area;
       })
     }
 
