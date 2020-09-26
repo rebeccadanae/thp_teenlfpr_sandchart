@@ -102,6 +102,7 @@ d3.selection.prototype.moveToFront = function() {
     var graphLabel1 = "All genders, all races, summer"
     var graphLabel2 = "Use the dropdown menus to explore subgroups"
     var season = "summer"
+    var season_long = "Summer"
     var startup = true
     var temp_keys = ["key1", "key2", "key3", "key4"]
     var const_keys = ["idleshare_all_all", "onlyschoolshare_all_all", "onlyworkshare_all_all",  "bothshare_all_all"]
@@ -143,15 +144,17 @@ d3.selection.prototype.moveToFront = function() {
 
         if(time_form_val == "summer"){
           season = "summer"
+          season_long = "Summer"
           graphLabel1 = "All genders, all races, summer"
           }else{
             season = "ay"
-          graphLabel1 = "All genders, all races, school year"
+            season_long = "Academic Year"
+          graphLabel1 = "All genders, all races, academic year"
           };
 
         suffix1 = genders_short[gender]
         suffix2 = races_short[race]
-        graphLabel2 = genders_long[gender]+", "+races_long[race]+", "+season
+        graphLabel2 = genders_long[gender]+", "+races_long[race]+", "+season_long
 
           //create_graph();
           update_graph();
