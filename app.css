@@ -7,6 +7,9 @@
 .caps{
   text-transform: uppercase;
 }
+#menus{
+  width: 100%;
+}
 #gender,
 #race{
   font-family: "franklin-gothic-urw", helvetica, sans serif;
