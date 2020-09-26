@@ -130,9 +130,9 @@ d3.selection.prototype.moveToFront = function() {
       startup = false;
 
       //get rid of everything
-      d3.selectAll("#layers, #legend_square, #legend_text, #graphLabel1, #graphLabel2").remove()
-      d3.selectAll("#yaxis").remove()
-      d3.selectAll("#xaxis").remove()
+      d3.selectAll("#graphLabel1, #graphLabel2").remove()
+      //d3.selectAll("#yaxis").remove()
+      //d3.selectAll("#xaxis").remove()
         var time_form = document.getElementById("time_frame")
         var time_form_val;
         for(var i=0; i<time_form.length; i++){
@@ -153,8 +153,70 @@ d3.selection.prototype.moveToFront = function() {
         suffix2 = races_short[race]
         graphLabel2 = genders_long[gender]+", "+races_long[race]+", "+season
 
-          create_graph();
+          //create_graph();
+          update_graph();
                 }
+
+    function update_graph(){
+      var suffix_comb = suffix1 + "_" + suffix2;
+      selection = suffix_comb+"_"+season
+
+      d3.csv("sandchart_data.csv", function(data) {
+        var keys1 = data.columns.slice(1).filter(function(d){
+          return d.includes("all_all_"+season)
+        })
+        var keys2 = data.columns.slice(1).filter(function(d){
+          return d.includes(selection)
+        })
+
+        var stackedData1 = d3.stack()
+          .keys(keys1)
+          (data)
+          var stackedData2 = d3.stack()
+            .keys(keys2)
+            (data)
+          var x = d3.scaleTime()
+            .domain(d3.extent(data, function(d) { return d.year; }))
+            .range([ 0, width ]);
+            var y = d3.scaleLinear()
+              .domain([0, 100])
+              .range([ height, 0 ]);
+          var area = d3.area()
+           .x(function(d) { return x(d.data.year); })
+           .y0(function(d) { return y(d[0]*100); })
+           .y1(function(d) { return y(d[1]*100); })
+           svg1.append("text")
+               .attr("text-anchor", "middle")
+               .attr("x", 170)
+               .attr("y", -10 )
+               .text(graphLabel1)
+               .attr("id", "graphLabel1")
+               .classed("bold", true)
+               .classed("caps", true)
+
+               svg2.append("text")
+                   .attr("text-anchor", "middle")
+                   .attr("x", 170)
+                   .attr("y", -10 )
+                   .text(graphLabel2)
+                   .attr("id", "graphLabel1")
+                   .classed("bold", true)
+                   .classed("caps", true)
+
+        d3.selectAll("#layer_1")
+        .data(stackedData1)
+        .transition()
+        .duration(2000)
+        .attr("d", area)
+
+        d3.selectAll("#layer_2")
+        .data(stackedData2)
+        .transition()
+        .duration(2000)
+        .attr("d", area)
+      })
+
+    }
 
     var dataTime = d3.select("#time_frame")
           dataTime.on("change", changeIt)
@@ -244,7 +306,7 @@ d3.selection.prototype.moveToFront = function() {
                 .attr("x", -135)
                 .attr("y", -35 )
                 .text("Percent")
-                .attr("id", "graphLabel1")
+                .attr("id", "axislabel")
                 .classed("bold", true)
 
 
@@ -261,7 +323,7 @@ d3.selection.prototype.moveToFront = function() {
                     .attr("x", -135)
                     .attr("y", -35 )
                     .text("Percent")
-                    .attr("id", "graphLabel1")
+                    .attr("id", "axislabel")
                     .classed("bold", true)
 
 
@@ -332,7 +394,7 @@ d3.selection.prototype.moveToFront = function() {
            .append("path")
              .attr("class", function(d, i) {
                return "myArea " + d.key })
-             .attr("id", "layer")
+             .attr("id", "layer_1")
              .style("fill", function(d) { return color(d.key); })
              .attr("d", area)
 
@@ -345,7 +407,7 @@ d3.selection.prototype.moveToFront = function() {
                 .attr("class", function(d, i) {
                   temp_keys[i] = d.key;
                   return "myArea " + d.key })
-                .attr("id", "layer")
+                .attr("id", "layer_2")
                 .style("fill", function(d) { return color(d.key); })
                 .attr("d", area)
 
