@@ -126,7 +126,10 @@ d3.selection.prototype.moveToFront = function() {
 
     create_graph();
 
+    function hover(){
 
+
+    }
     function changeIt(){
       startup = false;
 
@@ -330,12 +333,7 @@ d3.selection.prototype.moveToFront = function() {
                     .classed("bold", true)
 
 
-        if(startup == false){
-          d3.select("#graphLabel2")
-          .classed("bold", true)
-          .classed("caps", true)
-          .attr("x", 160)
-        }
+
         // Add Y axis
         var y = d3.scaleLinear()
           .domain([0, 100])
@@ -379,8 +377,11 @@ d3.selection.prototype.moveToFront = function() {
         var areaChart1 = svg1.append('g')
           .attr("clip-path", "url(#clip)")
 
+
           var areaChart2 = svg2.append('g')
             .attr("clip-path", "url(#clip)")
+
+
 
         // Area generator
         var area = d3.area()
@@ -388,7 +389,7 @@ d3.selection.prototype.moveToFront = function() {
          .y0(function(d) { return y(d[0]*100); })
          .y1(function(d) { return y(d[1]*100); })
 
-
+         
         // Show the areas
     areaChart1
            .selectAll("mylayers")
@@ -413,6 +414,9 @@ d3.selection.prototype.moveToFront = function() {
                 .attr("id", "layer_2")
                 .style("fill", function(d) { return color(d.key); })
                 .attr("d", area)
+
+
+
 
         var idleTimeout
         function idled() { idleTimeout = null; }
