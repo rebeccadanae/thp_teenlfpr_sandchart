@@ -88,9 +88,11 @@ d3.selection.prototype.moveToFront = function() {
 
     //Initial graph setup
 
-    var margin = {top: 30, right: 20, bottom: 30, left: 50},
-        width = 400 - margin.left - margin.right,
-        height = 400 - margin.top - margin.bottom;
+    var width = parseInt(d3.select('#graphsvg1').style('width')),
+    margin = {top: 30, right: .10* width, bottom: 30, left: .15* width},
+    width = width - margin.left - margin.right,
+    graphRatio = 1,
+    height = width * graphRatio;
 
     var colors = ["#007363", "#00add0", "#6e2585", "#69be28"];
     var genders_short = ["all", "fem", "male"];
@@ -107,6 +109,19 @@ d3.selection.prototype.moveToFront = function() {
     var temp_keys = ["key1", "key2", "key3", "key4"]
     var const_keys = ["idleshare_all_all", "onlyschoolshare_all_all", "onlyworkshare_all_all",  "bothshare_all_all"]
     // append the svg object to the body of the page
+
+    var svg1 = d3.select("#graphsvg1")
+    //.attr("y", "400")
+  .append("g")
+  .attr("transform",
+        "translate(" + margin.left + "," + margin.top + ")");
+
+          var svg2 = d3.select("#graphsvg2")
+          //.attr("y", "400")
+        .append("g")
+          .attr("transform",
+                "translate(" + margin.left + "," + margin.top + ")");
+    /*
     var svg1 = d3.select(".graph1")
       .append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -123,7 +138,7 @@ d3.selection.prototype.moveToFront = function() {
                 .append("g")
                   .attr("transform",
                         "translate(" + margin.left + "," + margin.top + ")");
-
+*/
     create_graph();
 
     function hover(){
@@ -389,7 +404,7 @@ d3.selection.prototype.moveToFront = function() {
          .y0(function(d) { return y(d[0]*100); })
          .y1(function(d) { return y(d[1]*100); })
 
-         
+
         // Show the areas
     areaChart1
            .selectAll("mylayers")

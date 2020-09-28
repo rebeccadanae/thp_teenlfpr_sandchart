@@ -34,7 +34,7 @@
   flex-wrap: wrap;
 }
 .tall{
-  height: 400px;
+  height: 450px;
 }
 .section {
   width: 50%;
@@ -52,6 +52,7 @@
     max-width: 300px;
     padding: 0 10px;
     margin-left: auto;
+    margin-top: 10px;
 }
 .legend-container{
   width: 100%;
@@ -62,7 +63,7 @@
   font-family: "franklin-gothic-urw", helvetica, sans serif;
   font-weight: 400;
   font-size: 14px;
-  height: 60px;
+  height: 150px;
 }
 
 .error-box{
@@ -122,10 +123,21 @@
   width: 50%;
   margin-left: 30px;
 }
+.logo-container{
+  position:relative;
+  width: 50%;
+  margin-left: auto;
+}
 
 #source_content {
   position: absolute;
   bottom: 0;
+}
+#logo-content {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin-right: 20px;
 }
 
 
@@ -150,7 +162,9 @@
 @media only screen and (max-width: 720px) {
 
 
-
+.logo-container{
+display: none;
+}
 
 .info_box{
   display: block;
