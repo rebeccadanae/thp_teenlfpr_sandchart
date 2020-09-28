@@ -130,18 +130,17 @@
 
 
 
-
-
+#menus{
+  text-align: center;
+  width: 100%;
+}
+#time_frame, #gender, #race{
+  padding-bottom: 10px;
+}
 
 /* Mobile Styles */
 @media only screen and (max-width: 720px) {
-.logo-container,
-.graph1,
-.graph2,
-.legend-container,
-.dropdown {
-  display:none;
-}
+
 
 
 
@@ -159,9 +158,7 @@
   margin-top: 5px;
   margin-bottom: 5px;
 }
-.dropdown-content{
-  display:none;
-}
+
 .show{
   display:block;
   text-align:center;
@@ -193,10 +190,18 @@
     margin: 0 auto;
   }
   .graph1,
-  .graph2,
-  .search-container,
-  .drowpdown-container{
+  .graph2{
     width: 50%
   }
 
+#menus{
+  text-align: left;
+}
+#menus *{
+  display: inline;
+}
+#time_frame{
+  padding-right: 460px;
+  padding-left: 20px;
+}
 }
