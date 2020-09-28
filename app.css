@@ -118,9 +118,9 @@
 
 
 .source-container {
-
   position: relative;
-
+  width: 50%;
+  margin-left: 30px;
 }
 
 #source_content {
@@ -137,6 +137,14 @@
 #time_frame, #gender, #race{
   padding-bottom: 10px;
 }
+.graph1,
+.graph2{
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  align-items: center;
+}
 
 /* Mobile Styles */
 @media only screen and (max-width: 720px) {
@@ -149,7 +157,7 @@
   margin: 0 auto;
   text-align: center;
 }
-.search-container,
+
 .dropdown,
 .legend-container{
   width: 100%;
@@ -164,19 +172,16 @@
   text-align:center;
   margin: 0 auto;
 }
+.source-container{
+  text-align: center;
+  width: 85%;
+}
 }
 
 /* Tablet Styles */
 @media only screen and (min-width: 721px) and (max-width: 960px) {
 
-  .graph1,
-  .graph2{
-    width: 100%;
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-    align-items: center;
-  }
+
   .search-container{
     width: 50%;
   }
@@ -204,4 +209,5 @@
   padding-right: 460px;
   padding-left: 20px;
 }
+
 }
