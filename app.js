@@ -87,12 +87,31 @@ d3.selection.prototype.moveToFront = function() {
 
 
     //Initial graph setup
+    var screen_width = parseInt(d3.select('.interactive-container').style('width'))
+    console.log(screen_width);
+    if(screen_width < 720){
+      var mode = "mobile"
+    }else if (screen_width < 960){
+      var mode = "tablet"
+    }else{
+      var mode = "desktop"
+    }
+    var width = parseInt(d3.select('#graphsvg1').style('width'))
 
-    var width = parseInt(d3.select('#graphsvg1').style('width')),
-    margin = {top: 30, right: .10* width, bottom: 30, left: .15* width},
-    width = width - margin.left - margin.right,
-    graphRatio = 1,
-    height = width * graphRatio;
+    if(width > 500){
+      var tablet_width = width;
+      width = 450;
+      var mode = "tablet";
+    };
+    console.log(mode);
+    var margin = {top: 30, right: .10* width, bottom: 30, left: .15* width}
+    width = width - margin.left - margin.right
+    if(mode == "tablet"){
+      margin.left = .25*tablet_width
+    }
+    var graphRatio = .9
+    var height = width * graphRatio
+
 
     var colors = ["#007363", "#00add0", "#6e2585", "#69be28"];
     var genders_short = ["all", "fem", "male"];
@@ -208,19 +227,25 @@ d3.selection.prototype.moveToFront = function() {
            .y1(function(d) { return y(d[1]*100); })
            svg1.append("text")
                .attr("text-anchor", "middle")
-               .attr("x", 170)
+               .attr("x", width/2)
                .attr("y", -10 )
                .text(graphLabel1)
                .attr("id", "graphLabel1")
+               .attr("font-size", function(d){
+                 return width/24 + "px"
+               })
                .classed("bold", true)
                .classed("caps", true)
 
                svg2.append("text")
                    .attr("text-anchor", "middle")
-                   .attr("x", 170)
+                   .attr("x", width/2)
                    .attr("y", -10 )
                    .text(graphLabel2)
-                   .attr("id", "graphLabel1")
+                   .attr("id", "graphLabel2")
+                   .attr("font-size", function(d){
+                     return width/24 + "px"
+                   })
                    .classed("bold", true)
                    .classed("caps", true)
 
@@ -284,8 +309,20 @@ d3.selection.prototype.moveToFront = function() {
       var legend_labels = ["Neither labor force participant nor enrolled in school", "Enrolled in school and not participating in labor force",
                             "Labor force participant and enrolled in school", "Labor force participant and not enrolled in school"]
 
-      var circle_x = [125, 500, 125, 500]
-      var circle_y = [15, 15, 45, 45]
+
+      if(mode == "desktop"){
+        var circle_x = [125, 500, 125, 500]
+        var circle_y = [15, 15, 45, 45]
+        var legend_height = 200
+      }else{
+
+        var circle_x = [screen_width/4, screen_width/4, screen_width/4, screen_width/4 ]
+        var circle_y = [15, 45, 75, 105]
+        var legend_height = 400
+      }
+
+
+
         //////////
         // AXIS //
         //////////
@@ -314,10 +351,13 @@ d3.selection.prototype.moveToFront = function() {
 
         svg1.append("text")
             .attr("text-anchor", "middle")
-            .attr("x", 170)
+            .attr("x", width/2)
             .attr("y", -10 )
             .text(graphLabel1)
             .attr("id", "graphLabel1")
+            .attr("font-size", function(d){
+              return width/24 + "px"
+            })
             .classed("bold", true)
             .classed("caps", true)
 
@@ -329,14 +369,20 @@ d3.selection.prototype.moveToFront = function() {
                 .text("Percent")
                 .attr("id", "axislabel")
                 .classed("bold", true)
+                .attr("font-size", function(d){
+                  return width/24 + "px"
+                })
 
 
             svg2.append("text")
             .attr("text-anchor", "middle")
-                .attr("x", 170)
+                .attr("x", width/2)
                 .attr("y", -10 )
                 .text(graphLabel2)
                 .attr("id", "graphLabel2")
+                .attr("font-size", function(d){
+                  return width/24 + "px"
+                })
 
                 svg2.append("text")
                     .attr("text-anchor", "end")
@@ -346,6 +392,9 @@ d3.selection.prototype.moveToFront = function() {
                     .text("Percent")
                     .attr("id", "axislabel")
                     .classed("bold", true)
+                    .attr("font-size", function(d){
+                      return width/24 + "px"
+                    })
 
 
 
@@ -469,8 +518,8 @@ d3.selection.prototype.moveToFront = function() {
             var legend_svg = d3
               .select(".legend-container")
               .append("svg")
-              .attr("width", 950)
-              .attr("height", 60)
+              .attr("width", screen_width)
+              .attr("height", legend_height)
               .attr("x", "50%")
               .classed("legend", true);
 
@@ -502,6 +551,7 @@ d3.selection.prototype.moveToFront = function() {
                       .text(function(d){ return d})
                       .attr("text-anchor", "left")
                       .style("alignment-baseline", "middle")
+                      .attr("font-size", width/28+"px")
                       .on("mouseover", highlight)
                       .on("mouseleave", noHighlight)
 
