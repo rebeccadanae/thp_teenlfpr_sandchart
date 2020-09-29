@@ -17234,39 +17234,9 @@ d3.selection.prototype.moveToFront = function() {
     var selection = "summer_all_all"
     var prev_selection = ""
 
-/*
-    function change_filter(){
-      var analytics_label = "category"
-      if(filter == 1){
-          variable = 0;
-          analytics_label = "category"
-          labels = ["Private 4-year", "Public 4-year", "2-year", "For-Profit", "All"]
-          keys = ["Private 4-yr", "Public 4-yr", "2-yr", "For-Profit", "All"]
-          colors = ["#053769", "#65a4e5", "#ffa626", "#ff5e1a", "#000000"]
-        } else if(filter == 2){
-          variable = 1;
-          analytics_label = "selectivity_tier"
-          labels = ["Highly Selective 4-year", "Selective 4-year", "Nonselective 4-year", "Two-year", "For-profit", "All"]
-          keys = ["Highly Sel 4-yr", "Sel 4-yr", "Nonsel 4-yr", "2-yr", "For-Profit", "All"]
-          colors = ["#053769", "#65a4e5", "#ffa626", "#ff5e1a", "#0EBE9E", "#000000"]
-        }else{
-          variable = 2;
-          analytics_label = "size"
-          labels = ["Small", "Medium", "Large", "Very Large", "All"]
-          keys = ["Small", "Medium", "Large", "Very Large", "All"]
-          colors = ["#053769", "#65a4e5", "#ffa626", "#ff5e1a", "#000000"]
-        }
-        analytics('dropdown_menu', analytics_label);
-        d3.selectAll("#graph_points").remove();
-        build_legend(keys, colors, labels);
-        add_dots();
-    }
-*/
-
 
     //Initial graph setup
     var screen_width = parseInt(d3.select('.interactive-container').style('width'))
-    console.log(screen_width);
     if(screen_width < 720){
       var mode = "mobile"
     }else if (screen_width < 960){
@@ -17318,24 +17288,7 @@ d3.selection.prototype.moveToFront = function() {
         .append("g")
           .attr("transform",
                 "translate(" + margin.left + "," + margin.top + ")");
-    /*
-    var svg1 = d3.select(".graph1")
-      .append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .attr("y", "400")
-      .append("g")
-        .attr("transform",
-              "translate(" + margin.left + "," + margin.top + ")");
 
-    var svg2 = d3.select(".graph2")
-                .append("svg")
-                  .attr("width", width + margin.left + margin.right)
-                  .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                  .attr("transform",
-                        "translate(" + margin.left + "," + margin.top + ")");
-*/
     create_graph();
 
     function hover(){
@@ -17365,12 +17318,12 @@ d3.selection.prototype.moveToFront = function() {
             season_long = "Academic Year"
           graphLabel1 = "All genders, all races, academic year"
           };
-
+					var gender = document.getElementById("gender").value;
+					var race = document.getElementById("race").value;
         suffix1 = genders_short[gender]
         suffix2 = races_short[race]
         graphLabel2 = genders_long[gender]+", "+races_long[race]+", "+season_long
 
-          //create_graph();
           update_graph();
                 }
 
@@ -17700,7 +17653,7 @@ d3.selection.prototype.moveToFront = function() {
           }
 
           var text_highlight = function(d, i){
-              console.log(keys1)
+
             // reduce opacity of all groups
             d3.selectAll(".myArea").style("opacity", .1)
             // expect the one that is hovered
