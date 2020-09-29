@@ -113,7 +113,7 @@ d3.selection.prototype.moveToFront = function() {
     var height = width * graphRatio
 
 
-    var colors = ["#007363", "#00add0", "#6e2585", "#69be28"];
+    var colors = ["#69be28", "#6e2585", "#00add0", "#007363"];
     var genders_short = ["all", "fem", "male"];
     var genders_long = ["All Genders", "Female", "Male"];
     var races_short = ["all", "black", "hisp", "white"];
@@ -295,7 +295,7 @@ d3.selection.prototype.moveToFront = function() {
         // color palette
         var color = d3.scaleOrdinal()
           .domain(keys1)
-          .range(colors);
+          .range(colors.reverse());
 
         //stack the data?
         var stackedData1 = d3.stack()
@@ -306,8 +306,10 @@ d3.selection.prototype.moveToFront = function() {
             .keys(keys2)
             (data)
 
-      var legend_labels = ["Neither labor force participant nor enrolled in school", "Enrolled in school and not participating in labor force",
-                            "Labor force participant and enrolled in school", "Labor force participant and not enrolled in school"]
+      var legend_labels = ["Labor force participant and not enrolled in school",
+                            "Labor force participant and enrolled in school",
+                            "Enrolled in school and not participating in labor force",
+                          "Neither labor force participant nor enrolled in school"]
 
 
       if(mode == "desktop"){
@@ -491,12 +493,22 @@ d3.selection.prototype.moveToFront = function() {
           //////////
 
           // What to do when one group is hovered
-          var highlight = function(d, i){
+          var circle_highlight = function(d, i){
 
             // reduce opacity of all groups
             d3.selectAll(".myArea").style("opacity", .1)
             // expect the one that is hovered
-            d3.selectAll("."+d+", ."+temp_keys[i]+", ."+const_keys[i]).style("opacity", 1)
+            //d3.selectAll("."+d+", ."+temp_keys[i]+", ."+const_keys[i]).style("opacity", 1)
+            d3.selectAll("."+d).style("opacity", 1)
+          }
+
+          var text_highlight = function(d, i){
+              console.log(keys1)
+            // reduce opacity of all groups
+            d3.selectAll(".myArea").style("opacity", .1)
+            // expect the one that is hovered
+            //d3.selectAll("."+d+", ."+temp_keys[i]+", ."+const_keys[i]).style("opacity", 1)
+            d3.selectAll("."+keys1[i]).style("opacity", 1)
           }
 
           // And when it is not hovered anymore
@@ -525,7 +537,7 @@ d3.selection.prototype.moveToFront = function() {
 
               var size = 20
               legend_svg.selectAll("myrect")
-                .data(keys1)
+                .data(keys1.reverse())
                 .enter()
                 .append("circle")
                   .attr("id", "legend_square")
@@ -536,7 +548,7 @@ d3.selection.prototype.moveToFront = function() {
                   .attr("r", 8)
                   .attr("height", size)
                   .style("fill", function(d){ return color(d)})
-                  .on("mouseover", highlight)
+                  .on("mouseover", circle_highlight)
                   .on("mouseleave", noHighlight)
 
                   legend_svg.selectAll("mylabels")
@@ -552,7 +564,7 @@ d3.selection.prototype.moveToFront = function() {
                       .attr("text-anchor", "left")
                       .style("alignment-baseline", "middle")
                       .attr("font-size", width/28+"px")
-                      .on("mouseover", highlight)
+                      .on("mouseover", text_highlight)
                       .on("mouseleave", noHighlight)
 
 
