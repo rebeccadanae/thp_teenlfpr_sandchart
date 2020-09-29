@@ -176,8 +176,7 @@ d3.selection.prototype.moveToFront = function() {
         for(var i=0; i<time_form.length; i++){
             if(time_form[i].checked){
               time_form_val = time_form[i].id;}}
-      var gender = document.getElementById("gender").value;
-      var race = document.getElementById("race").value;
+
 
         if(time_form_val == "summer"){
           season = "summer"
@@ -265,13 +264,33 @@ d3.selection.prototype.moveToFront = function() {
     }
 
     var dataTime = d3.select("#time_frame")
-          dataTime.on("change", changeIt)
+          dataTime.on("change", function(){
+            var time_form = document.getElementById("time_frame")
+            var time_form_val;
+            for(var i=0; i<time_form.length; i++){
+                if(time_form[i].checked){
+                  time_form_val = time_form[i].id;}}
+                  var analytics_label = "summer"
+                  if(time_form_val == school_year){
+                    analytics_label == "school year"
+                  }
+                  analytics('radio_button', analytics_label)
+            changeIt(); })
 
     var dataGender = d3.select("#gender")
-          dataGender.on("change", changeIt)
+          dataGender.on("change", function(){
+            var gender = document.getElementById("gender").value;
+            var gender_labels = ["all_genders",  "female", "male"]
+            analytics('dropdown_menu', gender_labels[gender]);
+            changeIt();})
 
     var dataRace = d3.select("#race")
-          dataRace.on("change", changeIt)
+          dataRace.on("change", function(){
+            var race = document.getElementById("race").value;
+            var race_labels = ["all_races", "black", "hispanic", "white"]
+            analytics('dropdown_menu', race_labels[race]);
+            changeIt();
+          })
     // Parse the Data
 
     function create_graph(){
